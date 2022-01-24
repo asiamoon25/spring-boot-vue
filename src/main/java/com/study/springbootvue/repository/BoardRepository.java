@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface BoardRepository {
     int saveBoard(String inputText, String writer);
-    List<BoardDTO> boardData();
+    List<BoardDTO> boardData(int startRow,int endRow);
+    int allData();
 }

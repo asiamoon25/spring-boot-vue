@@ -19,10 +19,15 @@ public class BoardController {
         this.boardService = boardService;
     }
 
+    //======================================================================
     @GetMapping("/board")
-    public Map<String, List<BoardDTO>> board(){
+    public Map<String, List<BoardDTO>> board(@RequestParam Map<String,String> params){
 
-        List<BoardDTO> boardData = boardService.boardData();
+        String strPage = params.get("page");
+
+        int pageNo = Integer.parseInt(strPage);
+
+        List<BoardDTO> boardData = boardService.boardData(pageNo);
 
         Map<String,List<BoardDTO>> map = new HashMap<>();
 
@@ -30,10 +35,22 @@ public class BoardController {
 
         return map;
     }
-    @RequestMapping("/board-save")
+//======================================================================
+    @GetMapping("/board/pagination")
+    public Map<String,Integer> pagination(){
+
+        Map<String,Integer> map = new HashMap<>();
+
+        map.put("count",boardService.pagination());
+
+        return map;
+    }
+//======================================================================
+    @PostMapping("/board-save")
     public Integer saveBoard(@RequestParam Map<String,String>params){
         String inputText = params.get("inputText");
         String writer = params.get("writer");
         return boardService.saveBoard(inputText,writer);
     }
+//======================================================================
 }

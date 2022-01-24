@@ -7,6 +7,9 @@
         INSERT INTO BOARD(WRITER,INPUTTEXT,WRITEDATE) VALUES(#{writer},#{inputText},current_timestamp)
     </insert>
     <select id="boardData" resultType="com.study.springbootvue.domain.BoardDTO">
-        SELECT * FROM BOARD
+        SELECT c.* from (SELECT @rownum:=@rownum+1 rnum, b.* from board b WHERE (@rownum:=0)=0 order by WRITEDATE desc) c where rnum  between #{startRow} and #{endRow};
+    </select>
+    <select id="allData" resultType="int">
+        SELECT count(*) FROM board
     </select>
 </mapper>

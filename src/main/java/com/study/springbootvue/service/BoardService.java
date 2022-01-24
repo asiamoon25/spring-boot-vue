@@ -16,12 +16,21 @@ public class BoardService {
     public BoardService(BoardRepository repository) {
         this.repository = repository;
     }
-
+    //======================================================================
     public int saveBoard(String inputText,String writer){
         return repository.saveBoard(inputText, writer);
     }
+    //======================================================================
+    public List<BoardDTO> boardData(int pageNo){
+        int startRow = pageNo*5-4;
+        int endRow = startRow+4;
+        return repository.boardData(startRow,endRow);
+    }
+    //======================================================================
+    public Integer pagination(){
+        int all = repository.allData();
+        int pagePerCount = 5; // 페이징
 
-    public List<BoardDTO> boardData(){
-        return repository.boardData();
+        return (all%pagePerCount == 0)? all/pagePerCount : (all/pagePerCount)+1;
     }
 }
