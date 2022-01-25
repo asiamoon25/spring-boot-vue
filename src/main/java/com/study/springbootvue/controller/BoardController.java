@@ -53,4 +53,13 @@ public class BoardController {
         return boardService.saveBoard(inputText,writer);
     }
 //======================================================================
+    @GetMapping("/board/search")
+    public Map<String,Object> search(@RequestParam Map<String,String>params){
+
+        Map<String,Object> map = new HashMap<>();
+
+        map.put("boardData",boardService.search(params.get("search")));
+
+        return null;
+    }
 }

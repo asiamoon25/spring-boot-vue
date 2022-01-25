@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class BoardService {
@@ -30,7 +31,10 @@ public class BoardService {
     public Integer pagination(){
         int all = repository.allData();
         int pagePerCount = 5; // 페이징
-
         return (all%pagePerCount == 0)? all/pagePerCount : (all/pagePerCount)+1;
+    }
+    //======================================================================
+    public Optional<Object> search(String searchText){
+        return repository.search(searchText);
     }
 }
